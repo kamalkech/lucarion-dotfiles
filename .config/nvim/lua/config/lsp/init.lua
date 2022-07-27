@@ -2,7 +2,7 @@ local M = {}
 
 
 M.config = function(lspconfig)
-  local lsp_utils = require("plugin.lsp.utils")
+  local lsp_utils = require("config.lsp.utils")
   local attach = lsp_utils.on_attach
   -- Capabilities
   local capabilities = lsp_utils.set_capabilities()
@@ -25,9 +25,10 @@ M.config = function(lspconfig)
     })
   end
 
+	-- custom config servers, each has its own file for maintaining it
   local custom_servers = { "lua", "python", "js" }
   for _, lsp in pairs(custom_servers) do
-    local mod = "plugin.lsp." .. lsp
+    local mod = "config.lsp." .. lsp
     require(mod).setup(attach, capabilities)
   end
 

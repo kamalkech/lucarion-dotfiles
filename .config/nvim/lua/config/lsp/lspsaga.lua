@@ -3,7 +3,6 @@ local excluded_filetypes = {
   "TelescopePrompt",
   "TelescopeResults",
   "LspInfo",
-  "lsp-installer",
 }
 if vim.tbl_contains(excluded_filetypes, vim.bo.filetype) then
   return

@@ -23,13 +23,14 @@ M.setup = function(attach, capabilities)
           library = vim.api.nvim_get_runtime_file("", true),
         },
         format = {
+					-- https://github.com/CppCXY/EmmyLuaCodeStyle/blob/master/README_EN.md
           enable = true,
           defaultConfig = {
             indent_style = "space",
             tab_width = "2",
             indent_size = "2",
             quote_style = "double",
-            align_call_args = "true",
+            -- align_call_args = "true",
             align_function_define_params = "true",
             continuous_assign_statement_align_to_equal_sign = "true",
             continuous_assign_table_field_align_to_equal_sign = "true",

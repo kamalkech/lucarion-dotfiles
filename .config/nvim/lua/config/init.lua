@@ -1,7 +1,5 @@
 local present, packer = pcall(require, "packer")
 
--- local require("lazy_load").= require("lazy_load")
-
 if not present then
 	return
 end
@@ -13,8 +11,8 @@ packer.init {
 	disable_commands = true,
 	git = { clone_timeout = 6000 },
 	-- profile = {
-	--   enable = true,
-	--   threshold = 0,
+	-- 	enable = true,
+	-- 	threshold = 0,
 	-- },
 	display = {
 		working_sym = "ﲊ",
@@ -35,34 +33,34 @@ local plugin_list = {
 
 	{
 		"antoinemadec/FixCursorHold.nvim",
-		opt = true,
+		-- opt = true,
 		setup = function()
 			vim.g.cursorhold_updatetime = 100
-			vim.api.nvim_create_autocmd("VimEnter", {
-				once = true,
-				callback = function() lazy("FixCursorHold.nvim") end,
-			})
+			-- vim.api.nvim_create_autocmd("VimEnter", {
+			-- 	once = true,
+			-- 	callback = function() lazy("FixCursorHold.nvim") end,
+			-- })
 		end,
 	},
 	-- Theme
 	{
 		"catppuccin/nvim",
-		opt = true,
+		-- opt = true,
 		as = "theme",
-		run = ":CatppuccinCompile",
+		-- run = ":CatppuccinCompile",
 		config = function()
 			require("ui.catppuccin")
 		end,
-		setup = function()
-			require("lazy_load").theme()
-		end,
+		-- setup = function()
+		-- 	lazy("theme")
+		-- end,
 	},
 	{
 		"olimorris/persisted.nvim",
 		event = "BufReadPre",
 		module = "persisted",
 		config = function()
-			require("plugin.misc").sessions()
+			require("config.misc").sessions()
 		end,
 	},
 	{ "kyazdani42/nvim-web-devicons", after = "theme" },
@@ -89,18 +87,9 @@ local plugin_list = {
 			require("lazy_load").bufferline()
 		end,
 	},
+
+
 	-- Treesitter and its related plugins
-	{
-		"andymass/vim-matchup",
-		opt = true,
-		-- after = "nvim-treesitter",
-		config = function()
-			vim.g.matchup_matchparen_offscreen = {}
-		end,
-		setup = function()
-			require("lazy_load").matchup()
-		end,
-	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		opt = true,
@@ -117,7 +106,6 @@ local plugin_list = {
 					"lspinfo",
 					"TelescopePrompt",
 					"TelescopeResults",
-					"lsp-installer",
 				},
 				buftype_exclude = {
 					"terminal",
@@ -138,38 +126,41 @@ local plugin_list = {
 		event = "BufReadPre",
 		run = ":TSUpdate",
 		config = function()
-			require("plugin.treesitter").setup()
+			require("config.treesitter").setup()
 		end,
 	},
+
+
 	-- LSP time
 	-- LSP + DAP + Null-ls Installer
 	{
 		"williamboman/mason.nvim",
-		opt = true,
+		-- opt = true,
+		-- cmd = {"Mason", "MasonLog", "MasonInstall", "MasonUninstall", "MasonUninstallAll"},
 		config = function()
-			require("plugin.mason").setup()
+			require("config.mason").setup()
 		end,
-		setup = function()
-			require("lazy_load").mason()
-		end,
+		-- setup = function()
+		-- 	require("lazy_load").mason()
+		-- end,
 	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		opt = true,
-		config = function()
-			require("plugin.mason").lsp()
-		end,
-		setup = function()
-			require("lazy_load").mason_lsp()
-		end,
-	},
+	-- {
+	-- 	"williamboman/mason-lspconfig.nvim",
+	-- 	opt = true,
+	-- 	config = function()
+	-- 		require("config.mason").lsp()
+	-- 	end,
+	-- 	setup = function()
+	-- 		require("lazy_load").mason_lsp()
+	-- 	end,
+	-- },
 	-- LSPconfig itself
 	{
 		"neovim/nvim-lspconfig",
 		-- after = "mason.nvim",
 		opt = true,
 		config = function()
-			require("plugin.lsp").setup()
+			require("config.lsp").setup()
 		end,
 		setup = function()
 			require("lazy_load").lsp()
@@ -194,7 +185,7 @@ local plugin_list = {
 		event = "LspAttach",
 		module = "lspsaga",
 		config = function()
-			require("plugin.lsp.lspsaga")
+			require("config.lsp.lspsaga")
 		end,
 	},
 	{
@@ -202,7 +193,7 @@ local plugin_list = {
 		after = "nvim-lspconfig",
 		opt = true,
 		config = function()
-			require("plugin.lsp.null-ls").setup()
+			require("config.lsp.null-ls").setup()
 		end,
 	},
 	{
@@ -210,7 +201,7 @@ local plugin_list = {
 		opt = true,
 		module = "trouble",
 		config = function()
-			require("plugin.lsp.trouble").setup()
+			require("config.lsp.trouble").setup()
 		end,
 	},
 	-- Addtional functionalities for clangd
@@ -220,7 +211,7 @@ local plugin_list = {
 		ft = { "c", "cpp", "objc", "objcpp" },
 		module = "clangd_extensions",
 		config = function()
-			require("plugin.lsp.clangd").setup()
+			require("config.lsp.clangd").setup()
 		end
 	},
 
@@ -229,53 +220,53 @@ local plugin_list = {
 		"kyazdani42/nvim-tree.lua",
 		cmd = { "NvimTreeToggle", "NvimTreeFocus" },
 		config = function()
-			require("plugin.nvimtree").setup()
+			require("config.nvimtree").setup()
 		end,
 	},
 
 	-- Cmp and its related plugins
 	{
 		"rafamadriz/friendly-snippets",
+		module = "cmp",
 		event = "InsertEnter",
 	},
 	{
 		"hrsh7th/nvim-cmp",
 		after = "friendly-snippets",
 		config = function()
-			require("plugin.cmp")
+			require("config.cmp")
 		end,
 	},
 	{
 		"L3MON4D3/LuaSnip",
 		after = "nvim-cmp",
 		config = function()
-			require("plugin.misc").luasnip()
+			require("config.misc").luasnip()
 		end,
 	},
 	{ "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
-	{ "hrsh7th/cmp-nvim-lua", after = "cmp_luasnip", },
-	{ "hrsh7th/cmp-nvim-lsp", after = "cmp_luasnip", },
-	{ "hrsh7th/cmp-buffer", after = "cmp_luasnip", },
-	{ "hrsh7th/cmp-path", after = "cmp_luasnip", },
+	{ "hrsh7th/cmp-nvim-lua", after = "LuaSnip", },
+	{ "hrsh7th/cmp-nvim-lsp", after = "LuaSnip", },
+	{ "hrsh7th/cmp-buffer", after = "LuaSnip", },
+	{ "hrsh7th/cmp-path", after = "LuaSnip", },
 	-- { "hrsh7th/cmp-nvim-lsp-signature-help", after = "cmp_luasnip", },
 	{
 		"windwp/nvim-autopairs",
 		after = "nvim-cmp",
 		config = function()
-			require("plugin.misc").autopairs()
+			require("config.misc").autopairs()
 		end,
 	},
 
-
-	-- Telescope
+	-- Telescope start
 	{
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
 		config = function()
-			require("plugin.telescope").setup()
+			require("config.telescope").setup()
 		end,
 		-- setup = function()
-		--   require("plugin.telescope").setkeys()
+		--   require("config.telescope").setkeys()
 		-- end,
 	},
 	{
@@ -286,34 +277,40 @@ local plugin_list = {
 			require("telescope").load_extension("fzf")
 		end,
 	},
-
+	-- Telescope end
 
 	-- DAP and its related plugins
 	{
 		"mfussenegger/nvim-dap",
-		opt = true,
+		-- opt = true,
+		module = "dap",
 		config = function()
-			require("dap").setup()
+			require("config.dap").setup()
+		end,
+		setup = function()
+			require("lazy_load").dap()
 		end,
 	},
 	{
 		"rcarriga/nvim-dap-ui",
 		after = "nvim-dap",
+		config = function()
+			require("config.dap.ui")
+		end
 	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		after = "nvim-dap",
+		config = function()
+			require("config.dap.virtual_text")
+		end,
 	},
 	{
 		"rcarriga/cmp-dap",
 		opt = true,
-		config = function()
-			require("cmp").setup.filtype({ "dap-repl", "dapui_watches" }, {
-				sources = {
-					name = "dap",
-				}
-			})
-		end,
+		ft = {"dap-repl", "dapui_watches"},
+		after = "nvim-dap",
+		requires = "hrsh7th/nvim-cmp",
 	},
 
 	-- Misc
@@ -322,12 +319,11 @@ local plugin_list = {
 		module = "Comment",
 		keys = { "gc", "gb" },
 		config = function()
-			require("plugin.misc").comment()
+			require("config.misc").comment()
 		end,
 	},
 	{
 		"xiyaowong/accelerated-jk.nvim",
-		event = "CursorHold",
 		config = function() require("accelerated-jk").setup() end,
 	},
 	{
@@ -335,7 +331,7 @@ local plugin_list = {
 		opt = true,
 		module = "gitsigns",
 		config = function()
-			require("plugin.misc").gitsigns()
+			require("config.misc").gitsigns()
 		end,
 		setup = function()
 			require("lazy_load").gitsigns()
@@ -360,7 +356,7 @@ local plugin_list = {
 		opt = true,
 		cmd = "PasteImg",
 		config = function()
-			require("plugin.misc").clip_image()
+			require("config.misc").clip_image()
 		end,
 	},
 }

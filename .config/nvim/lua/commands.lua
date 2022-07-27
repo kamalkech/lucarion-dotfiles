@@ -3,13 +3,19 @@ local function cmd(lhs, fun, opt)
 end
 
 -- too lazy to port to lua
-cmd("W", [[execute 'silent! write !sudo tee % >/dev/null' <bar> edit!]])
-cmd("Messages", [[execute "tabnew <bar> pu=execute('messages') <bar> setl nomodified"]])
+-- cmd("W", [[execute 'silent! write !sudo tee % >/dev/null' <bar> edit!]])
+-- cmd("Messages", [[execute "tabnew <bar> pu=execute('messages') <bar> setl nomodified"]])
 
 local packer_cmd = function(callback)
 	return function()
-		vim.cmd "silent! luafile %"
-		require "plugin"
+		vim.cmd.luafile({
+			args = {
+				vim.fn.expand(vim.fn.stdpath("config") .. "/lua/config/init.lua")
+			},
+			-- bang = true,
+		})
+		require "config"
+		-- require("ui.catppuccin")
 		require("packer")[callback]()
 	end
 end

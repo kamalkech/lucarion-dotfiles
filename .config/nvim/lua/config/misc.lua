@@ -164,7 +164,7 @@ M.todo_highlight = function()
       exclude = {
         "NvimTree",
         "alpha",
-        "vim", "lspinfo", "lsp-installer",
+        "vim", "lspinfo",
         "help",
         "packer",
         "toggleterm",
@@ -215,6 +215,7 @@ M.gitsigns = function()
       topdelete = { hl = "DiffDelete", text = "‾", numhl = "GitSignsDeleteNr" },
       changedelete = { hl = "DiffChangeDelete", text = "~", numhl = "GitSignsChangeNr" },
     },
+		sign_priority = 0,
   }
 
   gitsigns.setup(options)

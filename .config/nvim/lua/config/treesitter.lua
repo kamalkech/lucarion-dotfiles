@@ -30,11 +30,11 @@ local default = {
   indent = {
     enabled = true,
   },
-  matchup = {
-    enable = true,
-    include_match_words = true,
-    disable_virtual_text = true,
-  },
+  -- matchup = {
+  --   enable = true,
+  --   include_match_words = true,
+  --   disable_virtual_text = true,
+  -- },
   additional_vim_regex_highlighting = false,
 }
 

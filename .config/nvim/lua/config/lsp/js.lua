@@ -3,15 +3,20 @@ local M = {}
 M.setup = function(_, capabilities)
   local lspconfig = require("lspconfig")
   lspconfig.tsserver.setup({
+		init_options = {
+			hostInfo = "neovim",
+			-- includeInlayParameterNameHints = "all",
+		},
     on_attach = function(client, bufnr)
       -- Load LSP mappings on attach to buffer
-    end
+    end,
+		capabilities = capabilities,
   })
 
   lspconfig.eslint.setup({
     on_attach = function(client, bufnr)
       -- Load LSP mappings on attach to buffer
-      require("plugin.lsp.utils").setkeymaps()
+      require("config.lsp.utils").setkeymaps()
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
       if client.supports_method("textDocument/formatting") then
         vim.api.nvim_clear_autocmds({
@@ -27,10 +32,8 @@ M.setup = function(_, capabilities)
           end,
         })
       end
-
-    end
-
-
+    end,
+		capabilities = capabilities
   })
 end
 

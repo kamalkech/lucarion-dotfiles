@@ -5,7 +5,7 @@ end
 
 local M = {}
 
-local attach = require("plugin.lsp.utils").on_attach
+local attach = require("config.lsp.utils").on_attach
 local diagnostics = null_ls.builtins.diagnostics
 local code_actions = null_ls.builtins.code_actions
 local formatting = null_ls.builtins.formatting

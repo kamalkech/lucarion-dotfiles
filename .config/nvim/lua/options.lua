@@ -7,7 +7,8 @@ opt.termguicolors = true
 opt.updatetime = 250
 opt.timeoutlen = 400
 opt.undofile = true -- Allow to undo to states before opening
-
+-- Colorscheme color
+g.catppuccin_flavour = "frappe"
 -- Tab settings
 opt.tabstop = 2
 opt.softtabstop = 2
@@ -51,20 +52,24 @@ opt.splitbelow = true
 opt.number = true
 opt.ruler = false
 
+-- Mouse even tho 95% of the time i wont use it inside vim
 opt.mouse = "a"
 
 opt.whichwrap:append "<>[]hl"
 g.mapleader = " "
 
+-- So that I can know if Im using spaces or tabs
+opt.list = true
+opt.listchars = "tab: ,lead:⋅,trail:⋅,eol:↴"
+-- get python path
 if fn.exists("$VIRTUAL_ENV") == 1 then
-	g.python3_host_prog = fn.substitute(fn.system(                                    "which -a python3 | head -n2 | tail -n1")
-	                                    , "\n", "", "g")
+	g.python3_host_prog = fn.substitute(fn.system("which -a python3 | head -n2 | tail -n1"), "\n", "", "g")
 else
-	g.python3_host_prog = fn.substitute(fn.system(                                    "which python3"), "\n", "", "g")
+	g.python3_host_prog = fn.substitute(fn.system("which python3"), "\n", "", "g")
 end
 
--- add PATH for lsp/dap/null-ls etc
-vim.env.PATH = vim.env.PATH .. ":" .. (fn.stdpath("data") .. "/mason/bin")
+-- add PATH for lsp/dap/null-ls if mason is not started on startup
+-- vim.env.PATH = (fn.stdpath("data") .. "/mason/bin" .. ":") .. vim.env.PATH
 
 local disabled_built_ins = {
 	"2html_plugin",
@@ -76,8 +81,8 @@ local disabled_built_ins = {
 	"netrwPlugin",
 	"netrwSettings",
 	"netrwFileHandlers",
-	"matchit",
-	"matchparen",
+	-- "matchit",
+	-- "matchparen",
 	"tar",
 	"tarPlugin",
 	"tutor",
