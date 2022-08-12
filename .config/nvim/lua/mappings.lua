@@ -75,6 +75,12 @@ local default_mappings = {
 				end,
 				opts = { desc = "Load last session of this folder", silent = true },
 			},
+			["<leader>ss"] = {
+				callback = function()
+					require("persisted").save()
+				end,
+				opts = { desc = "Save Current Session", silent = true },
+			},
 			-- Comment toggler
 			["<leader>/"] = {
 				callback = function()
@@ -183,10 +189,11 @@ local default_mappings = {
 		t = {
 			["jk"] = {
 				callback = "<C-\\><C-n>",
-				opts = { desc = "Escape Terminal Mode", silent = true},
+				opts = { desc = "Escape Terminal Mode", silent = true },
 			}
 		}
 	},
+	-- It should have prefix as <leader>t so that I can easier memorize
 	["telescope"] = {
 		n = {
 			["<leader>tf"] = {
@@ -297,23 +304,8 @@ local default_mappings = {
 	}
 }
 
--- It should have prefix as <leader>t so that I can easier memorize
-
-
-M.setkeymaps = function(mappings)
-	for mode, maps in pairs(mappings) do
-		for lhs, opt in pairs(maps) do
-			vim.keymap.set(mode, lhs, opt.callback, opt.opts)
-		end
-	end
-end
-
-M.setup = function()
-	for _, mapping in pairs(default_mappings) do
-		M.setkeymaps(mapping)
-	end
-	-- M.setkeymaps(default_mappings)
-	-- M.setkeymaps(telescope)
+for _, mapping in pairs(default_mappings) do
+	setkeymaps(mapping)
 end
 
 return M

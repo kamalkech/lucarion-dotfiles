@@ -409,38 +409,55 @@ local file_info = {
 			fg = element.text,
 			bg = element.bg
 		},
-	}
+	},
+	session_status = {
+		provider = function()
+			if vim.g.persisting == true then
+				return " "
+			else
+				return " "
+			end
+		end,
+		-- enabled = function() return vim.g.persisting ~= nil end,
+		hl = {
+			fg = colors.sky,
+			bg = element.bg,
+		}
+	},
 }
 
 
 -- ## End Statusline components
 
-local left = {
-	invi_sep,
-	vi.left_sep, vi.icon, vi.mode, vi.right_sep,
-	invi_sep,
-	file_info.dir, file_info.name,
-	invi_sep,
-	git.left_sep, git.branch, git.added, git.changed, git.removed, git.right_sep,
-	invi_sep,
-}
-local middle = {
-	diag.progress,
-}
-local right = {
-	invi_sep,
-	diag.errors, diag.warnings, diag.infos, diag.hints,
-	invi_sep,
-	diag.client,
-	invi_sep,
-	progress.left_sep, progress.position, progress.right_sep,
-	invi_sep,
-}
+M.winbar = function() return "Woke" end
 
 M.statusline = function()
 	require("feline").setup({
 		components = {
-			active = { left, middle, right },
+			active = {
+				{ -- Left components
+					invi_sep,
+					vi.left_sep, vi.icon, vi.mode, vi.right_sep,
+					invi_sep,
+					file_info.dir, file_info.name,
+					invi_sep,
+					git.left_sep, git.branch, git.added, git.changed, git.removed, git.right_sep,
+					invi_sep,
+				},
+				{ -- Middle components
+					file_info.session_status, invi_sep,
+					diag.progress,
+				},
+				{ -- Right components
+					invi_sep,
+					diag.errors, diag.warnings, diag.infos, diag.hints,
+					invi_sep,
+					diag.client,
+					invi_sep,
+					progress.left_sep, progress.position, progress.right_sep,
+					invi_sep,
+				},
+			},
 			inactive = {},
 		},
 	})

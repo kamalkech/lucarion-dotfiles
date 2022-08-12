@@ -100,12 +100,22 @@ set smartindent
 set shiftwidth=2 
 set tabstop=2 
 set softtabstop=2
-inoremap jk <Esc>
+" inoremap jk <Esc>
 inoremap <C-H> <Left>
 inoremap <C-J> <Down>
 inoremap <C-K> <Up>
 inoremap <C-L> <Right>
+inoremap <C-F> <C-Right>
+inoremap <C-B> <C-Left>
 inoremap <C-E> <End>
 inoremap <C-A> <Esc>^i
+inoremap <A-j> <Esc>:m+1<CR>==gi
+inoremap <A-k> <Esc>:m-2<CR>==gi
+vnoremap < <gv
+vnoremap > >gv
+vnoremap <A-j> :m'>+1<CR>gv=gv
+vnoremap <A-k> :m'<-2<CR>gv=gv
 nnoremap <C-C> :%y+
+nnoremap <A-j> :m+1<CR>==
+nnoremap <A-k> :m-2<CR>==
 set whichwrap+=<,>,[,],h,l

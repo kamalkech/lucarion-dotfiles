@@ -10,14 +10,13 @@ local mappings = {
 		},
 		["gd"] = {
 			callback = function()
+				-- vim.lsp.buf.definition()
 				require("lspsaga.definition").preview_definition()
 			end,
 			opts = { buffer = 0, desc = "Lsp definition", silent = true },
 		},
 		["gr"] = {
-			callback = function()
-				require("lspsaga.finder").lsp_finder()
-			end,
+			callback = "<cmd>Lspsaga lsp_finder<CR>",
 			opts = { buffer = 0, desc = "Open lsp finder", silent = true },
 		},
 		["K"] = {
@@ -44,6 +43,12 @@ local mappings = {
 		--   callback = function() vim.lsp.buf.references() end,
 		--   opts = { buffer = 0, desc = "Lsp references", silent = true },
 		-- },
+		["<leader>ds"] = {
+			callback = function()
+				require("lspsaga.diagnostic").show_line_diagnostics()
+			end,
+			opts = { buffer = 0, desc = "Lsp diagnostic", silent = true, }
+		},
 		["<leader>fm"] = {
 			callback = function() vim.lsp.buf.format({ async = true }) end,
 			opts = { buffer = 0, desc = "Lsp format", silent = true },
@@ -92,9 +97,8 @@ local excluded_filetypes = {
 	"LspInfo",
 	"lsp-installer",
 }
-M.setkeymaps = function()
-	require("mappings").setkeymaps(mappings)
-end
+
+M.set_mappings = function() setkeymaps(mappings) end
 
 M.on_attach = function(client, bufnr)
 	if vim.tbl_contains(excluded_filetypes, vim.bo.filetype) then
@@ -104,7 +108,7 @@ M.on_attach = function(client, bufnr)
 
 
 	-- Load LSP mappings on attach to buffer
-	M.setkeymaps()
+	M.set_mappings()
 	-- If the LSP server have format provider
 	-- Format the file on save
 	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -125,20 +129,21 @@ M.on_attach = function(client, bufnr)
 	end
 
 	-- Show diagnostics on move
-	vim.api.nvim_create_autocmd("CursorHold", {
-		buffer = bufnr,
-		callback = function()
-			local opts = {
-				focusable = false,
-				close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-				border = "rounded",
-				source = "always",
-				prefix = " ",
-				scope = "line",
-			}
-			vim.diagnostic.open_float(opts)
-		end
-	})
+	-- Really wanna enable this but its too distracting
+	-- vim.api.nvim_create_autocmd("CursorHold", {
+	-- 	buffer = bufnr,
+	-- 	callback = function()
+	-- 		local opts = {
+	-- 			focusable = false,
+	-- 			close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+	-- 			border = "rounded",
+	-- 			source = "always",
+	-- 			prefix = " ",
+	-- 			scope = "line",
+	-- 		}
+	-- 		vim.diagnostic.open_float(opts)
+	-- 	end
+	-- })
 end
 
 M.set_capabilities = function()
@@ -189,14 +194,14 @@ M.lsp_handlers = function()
 	})
 	-- suppress error messages from lang servers
 	vim.notify = function(msg, log_level)
-	  if msg:match "exit code" then
-	    return
-	  end
-	  if log_level == vim.log.levels.ERROR then
-	    vim.api.nvim_err_writeln(msg)
-	  else
-	    vim.api.nvim_echo({ { msg } }, true, {})
-	  end
+		if msg:match "exit code" then
+			return
+		end
+		if log_level == vim.log.levels.ERROR then
+			vim.api.nvim_err_writeln(msg)
+		else
+			vim.api.nvim_echo({ { msg } }, true, {})
+		end
 	end
 end
 

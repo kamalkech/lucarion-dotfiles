@@ -16,7 +16,7 @@ M.setup = function(_, capabilities)
   lspconfig.eslint.setup({
     on_attach = function(client, bufnr)
       -- Load LSP mappings on attach to buffer
-      require("config.lsp.utils").setkeymaps()
+			require("config.lsp.utils").set_mappings()
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
       if client.supports_method("textDocument/formatting") then
         vim.api.nvim_clear_autocmds({

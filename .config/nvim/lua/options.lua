@@ -9,6 +9,9 @@ opt.timeoutlen = 400
 opt.undofile = true -- Allow to undo to states before opening
 -- Colorscheme color
 g.catppuccin_flavour = "frappe"
+g.matchup_matchparen_offscreen = { method = nil, scrolloff = 1 }
+g.cursorhold_updatetime = 100
+
 -- Tab settings
 opt.tabstop = 2
 opt.softtabstop = 2
@@ -32,7 +35,7 @@ opt.shortmess:append("sI")
 opt.showmode = false
 
 -- Session settings
-opt.sessionoptions = "buffers,curdir,folds,winpos,winsize,tabpages"
+opt.sessionoptions = "buffers,curdir,folds,winpos,tabpages"
 -- Wrap, linebreak settings
 opt.wrap = true
 opt.linebreak = true
@@ -68,7 +71,7 @@ else
 	g.python3_host_prog = fn.substitute(fn.system("which python3"), "\n", "", "g")
 end
 
--- add PATH for lsp/dap/null-ls if mason is not started on startup
+-- add mason to PATH for lsp/dap/null-ls usage if mason is not started on startup
 -- vim.env.PATH = (fn.stdpath("data") .. "/mason/bin" .. ":") .. vim.env.PATH
 
 local disabled_built_ins = {
@@ -81,8 +84,8 @@ local disabled_built_ins = {
 	"netrwPlugin",
 	"netrwSettings",
 	"netrwFileHandlers",
-	-- "matchit",
-	-- "matchparen",
+	"matchit",
+	"matchparen",
 	"tar",
 	"tarPlugin",
 	"tutor",
@@ -93,7 +96,6 @@ local disabled_built_ins = {
 	"zip",
 	"zipPlugin",
 	"rplugin",
-	"syntax",
 	"synmenu",
 	"fzf",
 	-- "ftplugin"

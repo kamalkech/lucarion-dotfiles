@@ -8,7 +8,7 @@ end
 
 local packer_cmd = function(callback)
 	return function()
-		vim.cmd.luafile({
+		vim.cmd.source({
 			args = {
 				vim.fn.expand(vim.fn.stdpath("config") .. "/lua/config/init.lua")
 			},

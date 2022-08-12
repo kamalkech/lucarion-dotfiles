@@ -18,7 +18,7 @@ end
 
 M.statusline = function()
 	-- Lazy load feline
-	autocmd({ "VimEnter" }, {
+	autocmd("VimEnter", {
 		once = true,
 		callback = function()
 			lazy("feline.nvim")
@@ -35,18 +35,34 @@ M.blankline = function()
 	})
 end
 
-M.mason = function()
-	autocmd({ "VimEnter" }, {
+M.matchup = function()
+	autocmd({ "BufReadPre", "BufNewFile" }, {
 		once = true,
 		callback = function()
-			lazy("mason.nvim")
-		end
+			lazy("vim-matchup")
+		end,
+	})
+end
+-- M.mason = function()
+-- 	autocmd({ "VimEnter" }, {
+-- 		once = true,
+-- 		callback = function()
+-- 			lazy("mason.nvim")
+-- 		end
+-- 	})
+-- end
+
+M.colorizer = function()
+	autocmd("BufReadPre", {
+		once = true,
+		callback = function()
+			lazy("nvim-colorizer.lua")
+		end,
 	})
 end
 
-
 M.lsp = function()
-	autocmd({ "UIEnter", }, {
+	autocmd("UIEnter", {
 		once = true,
 		callback = function()
 			lazy("nvim-lspconfig")
@@ -55,26 +71,29 @@ M.lsp = function()
 end
 
 M.gitsigns = function()
-	autocmd({ "BufRead" }, {
-		group = api.nvim_create_augroup("GitSignsLazyLoad", {}),
+	autocmd("BufRead", {
+		group = api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
 		callback = function()
-			local function on_exit(code, _)
-				if code == 0 then
-					vim.schedule(function()
-						require("packer").loader "gitsigns.nvim"
-					end)
-				end
+			if packer_plugins["gitsigns.nvim"].loaded then
+				api.nvim_del_augroup_by_name("GitSignsLazyLoad")
+				return
 			end
-
-			local lines = api.nvim_buf_get_lines(0, 0, -1, false)
-			if lines ~= { "" } then
+			--Taken from @max397574
+			if vim.api.nvim_buf_get_lines(0, 0, -1, false) ~= { "" } then
 				vim.loop.spawn("git", {
 					args = {
 						"ls-files",
 						"--error-unmatch",
-						vim.fn.expand "%:p:h",
-					},
-				}, on_exit)
+						vim.fn.expand("%:p:h"),
+					}
+				},
+					function(code, _)
+						if code == 0 then
+							vim.schedule(function()
+								require("packer").loader("gitsigns.nvim")
+							end)
+						end
+					end)
 			end
 		end,
 	})

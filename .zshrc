@@ -5,6 +5,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# autoload -Uz compinit
+# compinit
+zmodload zsh/zprof
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -39,7 +43,7 @@ zstyle ':omz:update' mode disabled  # disable automatic updates
 # zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -59,7 +63,7 @@ DISABLE_AUTO_TITLE="true"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -77,7 +81,7 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colored-man-pages zsh-autosuggestions fast-syntax-highlighting zsh-z gh)
+plugins=(colored-man-pages zsh-z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -105,20 +109,12 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias reborn="cd ~/Desktop/Game/Reborn/ && ./Game.AppImage"
 alias rejuv="cd ~/Desktop/Game/Rejuvenation/ && ./mkxp-z.Appimage 2> /dev/null"
-alias lutris="sudo sysctl -w abi.vsyscall32=0 && lutris"
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias yaya="yay"
 
 # opam configuration
 [[ ! -r /home/lucario387/.opam/opam-init/init.zsh ]] || source /home/lucario387/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-
-# >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/lucario387/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
@@ -131,16 +127,23 @@ else
     fi
 fi
 unset __conda_setup
+
+# >>> conda initialize >>>
 # <<< conda initialize <<<
 
 setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_DUPS 
+setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,underline"
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,underline"
+# ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 bindkey '^H' backward-kill-word
+
+source /usr/share/fzf/key-bindings.zsh 
+source /usr/share/fzf/completion.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
 [ -f "/home/lucario387/.ghcup/env" ] && source "/home/lucario387/.ghcup/env" # ghcup-env
-DOTNET_CLI_TELEMETRY_OPTOUT=1

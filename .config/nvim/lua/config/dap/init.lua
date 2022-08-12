@@ -28,7 +28,7 @@ M.setup = function()
 	for filetype, config in pairs(configurations) do
 		dap.configurations[filetype] = config
 	end
-	M.load_vscode_config()
+	-- M.load_vscode_config()
 	-- dap-repl settings
 	repl.commands = vim.tbl_deep_extend("force", repl.commands, {
 		exit = { "exit", ".exit", ".bye" },

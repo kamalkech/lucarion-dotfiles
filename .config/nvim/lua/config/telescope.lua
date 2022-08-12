@@ -1,4 +1,8 @@
-local M = {}
+local present, telescope = pcall(require, "telescope")
+if not present then
+	return
+end
+
 local extensions = {
 	fzf = {
 		fuzzy = true,
@@ -72,15 +76,4 @@ local extensions_list = {
 	-- "notify"
 }
 
-M.setup = function()
-	local present, telescope = pcall(require, "telescope")
-	if not present then
-		return
-	end
-	telescope.setup(options)
-	-- for _, ext in pairs(extensions_list) do
-	-- 	require("telescope").load_extension(ext)
-	-- end
-end
-
-return M
+telescope.setup(options)

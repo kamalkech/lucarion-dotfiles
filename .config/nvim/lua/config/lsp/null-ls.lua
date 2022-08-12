@@ -1,9 +1,8 @@
 local null_ls_ok, null_ls = pcall(require, "null-ls")
 if not null_ls_ok then
-  return
+	return
 end
 
-local M = {}
 
 local attach = require("config.lsp.utils").on_attach
 local diagnostics = null_ls.builtins.diagnostics
@@ -12,37 +11,33 @@ local formatting = null_ls.builtins.formatting
 -- Null-ls sources
 -- To install sources, use mason
 local sources = {
+	-- Diagnostics
+	diagnostics.cppcheck,
+	diagnostics.shellcheck,
+	diagnostics.zsh,
 
-  -- Diagnostics
-  diagnostics.cppcheck,
+	-- Formatting
+	formatting.clang_format.with({
+		filetypes = { "cs" },
+	}),
+	formatting.shfmt,
+	formatting.shellharden,
+	formatting.autopep8,
+	formatting.prettierd,
+	-- formatting.stylua.with({
+	--     extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") }
+	-- })
 
-  -- Formatting
-  formatting.clang_format.with({
-    filetypes = { "cs" },
-  }),
-  formatting.shellharden,
-  formatting.autopep8,
-  -- formatting.stylua.with({
-  --     extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") }
-  -- })
-
-
-  -- Code Actions
-  -- code_actions.eslint_d,
-  code_actions.shellcheck,
-  code_actions.gitsigns,
+	-- Code Actions
+	-- code_actions.eslint_d,
+	code_actions.shellcheck,
+	-- code_actions.gitsigns,
 }
 
-
-
-M.setup = function()
-  null_ls.setup {
-    debug = false,
-    sources = sources,
-    on_attach = function(client, bufnr)
-      attach(client, bufnr)
-    end,
-  }
-end
-
-return M
+null_ls.setup {
+	debug = false,
+	sources = sources,
+	on_attach = function(client, bufnr)
+		attach(client, bufnr)
+	end,
+}

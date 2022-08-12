@@ -1,7 +1,5 @@
-local colors = require("catppuccin.palettes").get_palette()
-
-
--- local hl_groups = require("ui.highlights").get_hlgroups({ "general", "bufferline", "feline" })
+-- vim.g.catppuccin_flavour = "frappe"
+-- local hl_groups = require("ui.highlights").get_hlgroups({ "general", "bufferline", "dap" })
 require("catppuccin").setup({
 	transparent_background = true,
 	term_colors = true,
@@ -11,38 +9,30 @@ require("catppuccin").setup({
 		suffix = "_compiled",
 	},
 	styles = {
-		-- comments = { "bold", "italic" },
+		comments = { "bold", "italic" },
 		conditionals = { "bold", "italic" },
 		loops = { "bold", "italic" },
 		operators = { "bold" },
 	},
 	integrations = {
 		treesitter = true,
-		native_lsp = {
+		native_lsp = { enabled = true, },
+		lsp_trouble = true,
+		cmp = true,
+		lsp_saga = true,
+		gitsigns = true,
+		telescope = true,
+		nvimtree = {
 			enabled = true,
-			underlines = {
-				errors = { "underline" },
-				hints = { "underline" },
-				warnings = { "underline" },
-				information = { "underline" },
-			},
-			lsp_trouble = true,
-			cmp = true,
-			lsp_saga = true,
-			gitsigns = true,
-			telescope = true,
-			nvimtree = {
-				enabled = true,
-				show_root = true,
-				transparent_panel = false,
-			},
-			indent_blankline = {
-				enabled = true,
-				colored_indent_levels = false,
-			},
-			bufferline = true,
-			markdown = true,
+			show_root = true,
+			transparent_panel = false,
 		},
+		indent_blankline = {
+			enabled = true,
+			colored_indent_levels = false,
+		},
+		bufferline = true,
+		markdown = true,
 		dap = {
 			enabled = true,
 			enabled_ui = true,
@@ -56,15 +46,6 @@ require("catppuccin").setup({
 	},
 
 	-- Custom hlgroup
-	custom_highlights = {
-		Comment = { fg = colors.yellow, bold = true, italic = true, },
-		markdownError = { link = "Normal" },
-		LineNr = { fg = colors.text, },
-		BufferLineBufferVisible = { italic = true, },
-		BufferLineBufferSelected = { bold = true, italic = true },
-		NvimDapVirtualText = { fg = colors.yellow, link = nil, bold = false, italic = false },
-		NvimDapVirtualTextError = { link = "DiagnosticError" },
-		NvimDapVirtualTextChanged = { fg = colors.sky, link = nil, bold = true, italic = true },
-	}
+	custom_highlights = require("ui.highlights").get_hlgroups({ "general", "bufferline", "dap" }),
 })
 vim.cmd.colorscheme("catppuccin")

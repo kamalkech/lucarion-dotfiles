@@ -11,10 +11,8 @@ end
 
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.pumheight = 30
-
 local ELLIPSIS_CHAR = "..."
 local MAX_LABEL_WIDTH = 40
-
 local disabled_filetypes = {
 	"terminal",
 	"qf",
@@ -38,10 +36,19 @@ local disabled_buftypes = {
 	"prompt",
 }
 
-
 cmp.setup({
+	window = {
+		completion = {
+			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			winhighlight = "Normal:Pmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+			side_padding = 0,
+		},
+		documentation = {
+			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			winhighlight = "Normal:Pmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+		}
+	},
 	enabled = function()
-		-- if vim.tbl_contains(dap_filetypes, vim.api.nvim_buf_get_option(0, "filetype")) == true then return true end
 		local disabled = false
 		disabled       = disabled or (vim.tbl_contains(disabled_buftypes, vim.api.nvim_buf_get_option(0, "buftype")))
 		disabled       = disabled or (vim.fn.reg_recording() ~= "")
@@ -64,12 +71,8 @@ cmp.setup({
 			require("luasnip").lsp_expand(args.body)
 		end,
 	},
-	window = {
-		completion = {
-			side_padding = 0,
-		}
-	},
 	formatting = {
+		-- fields = { "kind", "abbr", "menu"},
 		format = function(entry, vim_item)
 			local icons = require("ui.icons").lspkind
 			vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
@@ -78,26 +81,21 @@ cmp.setup({
 			if truncated_label ~= label then
 				vim_item.abbr = truncated_label .. ELLIPSIS_CHAR
 			end
-			vim_item.menu = ({
-				nvim_lsp = "[Lsp]",
-				nvim_lsp_signature_help = "[Arg]",
-				buffer = "[Buf]",
-				nvim_lua = "[Vim]",
-			})[entry.source.name]
 			return vim_item
 		end,
 	},
 	mapping = {
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<C-n>"] = cmp.mapping.select_next_item(),
-		["<C-d>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
+		["<C-p>"]     = cmp.mapping.select_prev_item(),
+		["<C-n>"]     = cmp.mapping.select_next_item(),
+		["<C-f>"]     = cmp.mapping.scroll_docs(4),
+		["<C-b>"]     = cmp.mapping.scroll_docs(-4),
 		["<C-SPACE>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.close(),
-		["<CR>"] = cmp.mapping.confirm {
+		["<C-e>"]     = cmp.mapping.close(),
+		["<CR>"]      = cmp.mapping.confirm {
 			behavior = cmp.ConfirmBehavior.Insert,
 			select = false,
 		},
+
 		["<TAB>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -120,16 +118,10 @@ cmp.setup({
 		end, { "i", "s" }),
 	},
 	sources = {
-		{ name = "nvim_lsp_signature_help" },
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
+		{ name = "luasnip", keyword_length = 5, },
+		{ name = "buffer", keyword_length = 5, },
 		{ name = "nvim_lua" },
-		{ name = "path" },
+		{ name = "path", max_item_count = 10 },
 	},
-})
-cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
-	sources = {
-		name = "dap",
-	}
 })

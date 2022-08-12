@@ -47,22 +47,6 @@ local defaults = {
   use_diagnostic_signs = true -- enabling this will use the signs defined in your lsp client
 }
 
--- local trouble_mappings = function()
---   local opts = { silent = true, noremap = true }
---   local mappings = {
---     ["<leader>aa"] = "<cmd>Trouble toggle<CR>",
---     ["<leader>aw"] = "<cmd>Trouble workspace_diagnostics<CR>",
---     ["<leader>ad"] = "<cmd>Trouble document_diagnostics<CR>",
---     ["<leader>al"] = "<cmd>Trouble loclist<CR>",
---     ["<leader>aq"] = "<cmd>Trouble quickfix<CR>",
---     ["gR"] = "<cmd>Trouble lsp_references<CR>",
---   }
---
---   for lhs, rhs in pairs(mappings) do
---     vim.api.nvim_set_keymap("n", lhs, rhs, opts)
---   end
--- end
-
 M.setup = function()
   require("trouble").setup(defaults)
   -- trouble_mappings()

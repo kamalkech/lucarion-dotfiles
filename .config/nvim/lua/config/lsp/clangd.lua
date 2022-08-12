@@ -9,6 +9,7 @@ M.setup = function()
 		server = {
 			cmd = {
 				"clangd",
+				"--background-index",
 				"--offset-encoding=utf-16", -- temporary fix to stop null-ls
 				"--enable-config",
 				"--completion-style=detailed",
@@ -17,6 +18,8 @@ M.setup = function()
 				"--pch-storage=memory",
 				"--suggest-missing-includes",
 			},
+			-- args = {
+			-- },
 			on_attach = attach,
 			capabilities = capabilities,
 			flags = {
