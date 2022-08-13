@@ -16,8 +16,8 @@ kitty_backup() {
 
 vim_config_backup() {
 	if [ -d "$HOME/.config/nvim" ]; then
-		# rsync --delete --inplace --no-whole-file --recursive --qtmUpE "$HOME/.config/nvim" "$PWD/.config/nvim"
-		rsync --delete --inplace --progress --no-whole-file --recursive -nptU ~/.config/nvim "$PWD/.config/"
+		# rsync --delete --inplace --no-whole-file --recursive --qtmUp "$HOME/.config/nvim" "$PWD/.config/nvim"
+		rsync --delete --inplace --exclude-from="./.gitignore" --no-whole-file --recursive -ptU "$HOME/.config/nvim" "$HOME/dotfiles/.config"
 
 		# rm -rf "$cwd/.config/nvim/"
 		# cp -rf "$HOME/.config/nvim/" "$cwd/.config/"

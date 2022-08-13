@@ -31,7 +31,7 @@ local on_TabNewEntered = function()
 end
 
 local on_TabEnter = function()
-	buf_ids = cache[api.nvim_get_current_tabpage()]
+	local buf_ids = cache[api.nvim_get_current_tabpage()]
 	if buf_ids then
 		for _, buf_id in pairs(buf_ids) do
 			api.nvim_buf_set_option(buf_id, "buflisted", true)

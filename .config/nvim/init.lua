@@ -1,8 +1,9 @@
-local present, impatient = pcall(require, "impatient")
+--local present, impatient =
+pcall(require, "impatient")
 
+require("utils")
 require("options")
 require("autocmds")
-require("utils")
 
 vim.schedule(function()
 	require("mappings")

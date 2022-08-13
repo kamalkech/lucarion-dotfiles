@@ -70,10 +70,10 @@ local options = {
 	extensions = extensions,
 }
 
-local extensions_list = {
-	-- "fzf",
-	-- "media_files",
-	-- "notify"
-}
+-- local extensions_list = {
+-- 	"fzf",
+-- 	"media_files",
+-- 	"notify"
+-- }
 
 telescope.setup(options)

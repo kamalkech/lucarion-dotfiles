@@ -48,7 +48,7 @@ local plugin_list = {
 		opt = true,
 		-- after = "nvim-web-devicons",
 		config = function()
-			require("ui.feline").statusline()
+			require("ui.feline").setup()
 		end,
 		-- setup = function()
 		-- 	require("lazy_load").statusline()
@@ -250,7 +250,8 @@ local plugin_list = {
 	-- Misc
 	{ "numToStr/Comment.nvim", module = "Comment", keys = { "gc", "gb" },
 		config = function() require("config.misc").comment() end, },
-	{ "xiyaowong/accelerated-jk.nvim", config = function() require("accelerated-jk").setup() end, },
+	--{ "xiyaowong/accelerated-jk.nvim", config = function() require("accelerated-jk").setup() end, },
+	{ "rainbowhxch/accelerated-jk.nvim", },
 	{
 		"lewis6991/gitsigns.nvim",
 		opt = true,

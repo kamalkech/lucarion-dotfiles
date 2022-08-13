@@ -1,5 +1,4 @@
--- vim.g.catppuccin_flavour = "frappe"
--- local hl_groups = require("ui.highlights").get_hlgroups({ "general", "bufferline", "dap" })
+local hl_groups = require("ui.highlights").get_hlgroups()
 require("catppuccin").setup({
 	transparent_background = true,
 	term_colors = true,
@@ -44,8 +43,7 @@ require("catppuccin").setup({
 		vimwiki = false,
 		beacon = false,
 	},
-
 	-- Custom hlgroup
-	custom_highlights = require("ui.highlights").get_hlgroups({ "general", "bufferline", "dap" }),
+	custom_highlights = hl_groups,
 })
 vim.cmd.colorscheme("catppuccin")

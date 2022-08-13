@@ -1,74 +1,65 @@
-local colors = require("catppuccin.palettes").get_palette()
-local latte = require("catppuccin.palettes.latte")
-local ucolors = require("catppuccin.utils.colors")
-
+local vary_color = function(latte_clr, clr)
+	if vim.g.catppuccin_flavour == "latte" then return latte_clr
+	else return clr
+	end
+end
+local bg = vary_color("crust", "surface0")
+local text = vary_color("base", "surface0")
 local hlgroups = {
-  FelineStatusline = { bg = colors.base },
+	FelineInviSep = { fg = text, bg = bg },
 
-  -- Git Branch
-  FelineGitBranch  = { bg = colors.overlay0, fg = latte.pink },
-  FelineGitAdded   = { bg = colors.overlay0, fg = latte.green },
-  FelineGitChanged = { bg = colors.overlay0, fg = latte.yellow },
-  FelineGitRemoved = { bg = colors.overlay0, fg = latte.red },
+	-- Git Branch
+	FelineGitBranch  = { bg = bg, fg = "mauve" },
+	FelineGitAdded   = { bg = bg, fg = "green" },
+	FelineGitChanged = { bg = bg, fg = "yellow" },
+	FelineGitRemoved = { bg = bg, fg = "red" },
 
-  -- Separators for Git area
-  FelineGitSep = { fg = colors.overlay0, bg = colors.base },
+	-- Vim Modes
+	FelineNormalMode      = { fg = text, bold = true, bg = "lavender" },
+	FelineOpMode          = { fg = text, bold = true, bg = "lavender" },
+	FelineInsertMode      = { fg = text, bold = true, bg = "green" },
+	FelineTerminalMode    = { fg = text, bold = true, bg = "green" },
+	FelineVisualMode      = { fg = text, bold = true, bg = "flamingo" },
+	FelineReplaceMode     = { fg = text, bold = true, bg = "maroon" },
+	FelineSelectMode      = { fg = text, bold = true, bg = "maroon" },
+	FelinePromptMode      = { fg = text, bold = true, bg = "teal" },
+	FelineMoreMode        = { fg = text, bold = true, bg = "teal" },
+	FelineCommandMode     = { fg = text, bold = true, bg = "peach" },
+	FelineShellMode       = { fg = text, bold = true, bg = "green" },
+	FelineNoneMode        = { fg = text, bold = true, bg = "sky" },
+	-- Separators for Vim Modes
+	FelineNormalModeSep   = { bg = bg, fg = "lavender" },
+	FelineOpModeSep       = { bg = bg, fg = "lavender" },
+	FelineInsertModeSep   = { bg = bg, fg = "green" },
+	FelineTerminalModeSep = { bg = bg, fg = "green" },
+	FelineVisualModeSep   = { bg = bg, fg = "flamingo" },
+	FelineReplaceModeSep  = { bg = bg, fg = "maroon" },
+	FelineSelectModeSep   = { bg = bg, fg = "maroon" },
+	FelinePromptModeSep   = { bg = bg, fg = "teal" },
+	FelineMoreModeSep     = { bg = bg, fg = "teal" },
+	FelineCommandModeSep  = { bg = bg, fg = "peach" },
+	FelineShellModeSep    = { bg = bg, fg = "green" },
+	FelineNoneModeSep     = { bg = bg, fg = "sky" },
 
-  -- Vim Modes
-  FelineNormalMode        = { fg = colors.base, bold = true, bg = latte.green },
-  FelineInsertMode        = { fg = colors.base, bold = true, bg = latte.red },
-  FelineVisualMode        = { fg = colors.base, bold = true, bg = latte.pink },
-  FelineOpMode            = { fg = colors.base, bold = true, bg = latte.green },
-  FelineBlockMode         = { fg = colors.base, bold = true, bg = latte.blue },
-  FelineReplaceMode       = { fg = colors.base, bold = true, bg = latte.mauve },
-  FelineVisualReplaceMode = { fg = colors.base, bold = true, bg = latte.mauve },
-  FelineEnterMode         = { fg = colors.base, bold = true, bg = latte.sky },
-  FelineMoreMode          = { fg = colors.base, bold = true, bg = latte.sky },
-  FelineSelectMode        = { fg = colors.base, bold = true, bg = latte.yellow },
-  FelineCommandMode       = { fg = colors.base, bold = true, bg = latte.green },
-  FelineShellMode         = { fg = colors.base, bold = true, bg = latte.green },
-  FelineTerminalMode      = { fg = colors.base, bold = true, bg = latte.green },
-  FelineNoneMode          = { fg = colors.base, bold = true, bg = ucolors.blend(latte.red, latte.green, 0.5) },
+	-- LSP
+	FelineLSPProgress = { bg = bg, fg = "rosewater" },
+	FelineLSPClient   = { bg = bg, fg = "blue" },
+	FelineLSPErrors   = { bg = bg, fg = "red" },
+	FelineLSPWarnings = { bg = bg, fg = "yellow" },
+	FelineLSPHints    = { bg = bg, fg = "rosewater" },
+	FelineLSPInfo     = { bg = bg, fg = "sky" },
 
-  -- Separators for Vim Modes
-  FelineNormalModeSep        = { bg = colors.base, fg = latte.green },
-  FelineInsertModeSep        = { bg = colors.base, fg = latte.red },
-  FelineVisualModeSep        = { bg = colors.base, fg = latte.pink },
-  FelineOpModeSep            = { bg = colors.base, fg = latte.green },
-  FelineBlockModeSep         = { bg = colors.base, fg = latte.blue },
-  FelineReplaceModeSep       = { bg = colors.base, fg = latte.mauve },
-  FelineVisualReplaceModeSep = { bg = colors.base, fg = latte.mauve },
-  FelineEnterModeSep         = { bg = colors.base, fg = latte.sky },
-  FelineMoreModeSep          = { bg = colors.base, fg = latte.sky },
-  FelineSelectModeSep        = { bg = colors.base, fg = latte.yellow },
-  FelineCommandModeSep       = { bg = colors.base, fg = latte.green },
-  FelineShellModeSep         = { bg = colors.base, fg = latte.green },
-  FelineTerminalModeSep      = { bg = colors.base, fg = latte.green },
-  FelineNoneModeSep          = { bg = colors.base, fg = ucolors.blend(latte.red, latte.green, 0.5) },
+	-- Miscellaneous
+	FelineFileInfoSep               = { bg = bg, fg = "sky" },
+	FelineFileInfoPosition          = { bg = "sky", fg = text },
+	FelineFileInfoPercentage        = { bg = "sky", fg = text },
+	FelineDirInfoDirectory          = { bg = "sapphire", fg = text },
+	FelineDirInfoDirectorySep       = { fg = "sapphire", bg = "teal" },
+	FelineDirInfoDirectorySepNoFile = { fg = "sapphire", bg = bg },
+	FelineDirInfoFilename           = { bg = "teal", fg = text, bold = true },
+	FelineDirInfoFilenameSep        = { fg = "teal", bg = bg },
+	FelineDirInfoSessionStatus      = { fg = "sky", bg = bg }
 
-  -- LSP
-  FelineLSPError      = { bg = colors.overlay0, fg = latte.red },
-  FelineLSPWarning    = { bg = colors.overlay0, fg = latte.yellow },
-  FelineLSPHints      = { bg = colors.overlay0, fg = latte.mauve },
-  FelineLSPInfo       = { bg = colors.overlay0, fg = latte.sky },
-  FelineLSPStatus     = { bg = colors.overlay0, fg = latte.rosewater },
-  FelineLSPStatusIcon = { bg = colors.overlay0, fg = latte.overlay1 },
-
-  -- Separators for LSP area
-  FelineLSPSep = { fg = colors.overlay0, bg = colors.base },
-
-
-  -- Miscellaneous
-  FelineFileInfo     = { fg = colors.base, bg = latte.rosewater },
-  FelineFolderInfo   = { fg = colors.base, bg = latte.flamingo },
-  FelineLineInfo     = { fg = colors.base, bg = latte.sapphire },
-  FelinePositionInfo = { fg = colors.base, bg = latte.sky },
-
-  -- Separators for Misc
-  FelineFileSep     = { bg = colors.base, fg = latte.rosewater },
-  FelineFolderSep   = { bg = colors.base, fg = latte.rosewater },
-  FelineLineSep     = { bg = colors.base, fg = latte.sapphire },
-  FelinePositionSep = { bg = colors.base, fg = latte.sky },
 }
 
 return hlgroups

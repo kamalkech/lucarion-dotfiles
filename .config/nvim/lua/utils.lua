@@ -1,18 +1,16 @@
 _G.setkeymaps = function(mappings)
 	for mode, maps in pairs(mappings) do
-		for lhs, opt in pairs(maps) do
-			vim.keymap.set(mode, lhs, opt.callback, opt.opts)
+		for lhs, value in pairs(maps) do
+			vim.keymap.set(mode, lhs, value.callback, value.opts)
 		end
 	end
 end
 
 _G.lazy = function(plugin, timer)
-	if plugin then
-		timer = timer or 0
-		vim.defer_fn(function()
-			require("packer").loader(plugin)
-		end, timer)
-	end
+	vim.defer_fn(function()
+		-- pcall(require, "impatient")
+		require("packer").loader(plugin)
+	end, timer or 0)
 end
 
 local fn = vim.fn

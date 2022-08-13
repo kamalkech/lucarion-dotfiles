@@ -26,7 +26,7 @@
 -- text
 -- yellow
 local bg = "mantle"
--- local frappe = require("catppuccin.palettes.frappe")
+--local frappe = require("catppuccin.palettes.latte")
 -- frappe.base = "#AABBCC"
 
 local hlgroups = {

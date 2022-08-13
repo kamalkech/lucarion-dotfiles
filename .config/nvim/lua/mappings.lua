@@ -12,6 +12,14 @@ local M = {}
 local default_mappings = {
 	["general"] = {
 		n = {
+			["j"] = {
+				callback = function() require("accelerated-jk").move_to("j") end,
+				opts = { silent = true },
+			},
+			["k"] = {
+				callback = function() require("accelerated-jk").move_to("k") end,
+				opts = { silent = true },
+			},
 			["<C-c>"] = {
 				callback = "<cmd>%y+<CR>",
 				opts = { desc = "Copy buffer", silent = true },
@@ -84,7 +92,7 @@ local default_mappings = {
 			-- Comment toggler
 			["<leader>/"] = {
 				callback = function()
-					require("Comment.api").toggle_current_linewise()
+					require("Comment.api").toggle.linewise.current(nil, {})
 				end,
 				opts = { desc = "Toggle comment on current line", silent = true },
 			},
@@ -159,6 +167,14 @@ local default_mappings = {
 		},
 
 		v = {
+			["j"] = {
+				callback = function() require("accelerated-jk").move_to("j") end,
+				opts = { silent = true },
+			},
+			["k"] = {
+				callback = function() require("accelerated-jk").move_to("k") end,
+				opts = { silent = true },
+			},
 			["<C-c>"] = {
 				callback = '"+y',
 				opts = { desc = "Copy selected text", silent = true },
@@ -172,7 +188,7 @@ local default_mappings = {
 				opts = { desc = "Move chunk inwards without resetting selected area", silent = true },
 			},
 			["<leader>/"] = {
-				callback = "<Esc><cmd>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>",
+				callback = "<Esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
 				opts = { desc = "Toggle Comment for selected area", silent = true },
 			},
 			-- Moving lines
@@ -183,6 +199,10 @@ local default_mappings = {
 			["<A-k>"] = {
 				callback = ":m '<-2<CR>gv=gv",
 				opts = { desc = "Move selected lines down", silent = true },
+			},
+			["p"] = {
+				callback = 'p:let @+=@0<CR>:let @"=@0<CR>',
+				opts = { silent = true }
 			},
 		},
 

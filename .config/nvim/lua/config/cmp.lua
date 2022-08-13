@@ -13,22 +13,22 @@ vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.pumheight = 30
 local ELLIPSIS_CHAR = "..."
 local MAX_LABEL_WIDTH = 40
-local disabled_filetypes = {
-	"terminal",
-	"qf",
-	"TelescopeResults",
-	"TelescopePrompt",
-	"lspinfo",
-	"packer",
-	"stratify",
-	"help",
-}
+-- local disabled_filetypes = {
+-- 	"terminal",
+-- 	"qf",
+-- 	"TelescopeResults",
+-- 	"TelescopePrompt",
+-- 	"lspinfo",
+-- 	"packer",
+-- 	"stratify",
+-- 	"help",
+-- }
 
 -- Special case to enable cmp for these two filetypes
-local dap_filetypes = {
-	"dapui_watches",
-	"dap-repl",
-}
+-- local dap_filetypes = {
+-- 	"dapui_watches",
+-- 	"dap-repl",
+-- }
 
 local disabled_buftypes = {
 	"terminal",
@@ -122,6 +122,6 @@ cmp.setup({
 		{ name = "luasnip", keyword_length = 5, },
 		{ name = "buffer", keyword_length = 5, },
 		{ name = "nvim_lua" },
-		{ name = "path", max_item_count = 10 },
+		{ name = "path", max_item_count = 100 },
 	},
 })

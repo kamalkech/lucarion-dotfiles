@@ -2,8 +2,8 @@ local M = {}
 
 local colors = require("catppuccin.palettes").get_palette()
 
-M.get_hlgroups = function(parts)
-	parts = (type(parts) == "table") and parts or { "general" }
+M.get_hlgroups = function()
+	local parts = { "general", "dap", "bufferline", "feline" }
 	local hl_groups = {}
 	for _, part in pairs(parts) do
 		local hl_table = require("ui.highlights." .. part)

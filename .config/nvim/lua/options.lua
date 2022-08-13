@@ -8,7 +8,7 @@ opt.updatetime = 250
 opt.timeoutlen = 400
 opt.undofile = true -- Allow to undo to states before opening
 -- Colorscheme color
-g.catppuccin_flavour = "frappe"
+g.catppuccin_flavour = "latte"
 g.matchup_matchparen_offscreen = { method = nil, scrolloff = 1 }
 g.cursorhold_updatetime = 100
 
@@ -96,8 +96,11 @@ local disabled_built_ins = {
 	"zip",
 	"zipPlugin",
 	"rplugin",
+	"syntax",
 	"synmenu",
 	"fzf",
+	"compiler",
+	"bugreport",
 	-- "ftplugin"
 }
 
