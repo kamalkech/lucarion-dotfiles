@@ -6,7 +6,7 @@ end
 
 packer.init {
 	auto_clean = true,
-	auto_reload_recomplied = true,
+	auto_reload_complied = true,
 	compile_on_sync = true,
 	disable_commands = true,
 	git = { clone_timeout = 6000 },
@@ -38,6 +38,7 @@ local plugin_list = {
 		as = "theme",
 		run = ":CatppuccinCompile",
 		config = function()
+			_G.palette_colors = require("catppuccin.palettes").get_palette()
 			require("ui.catppuccin")
 		end,
 	},
@@ -50,9 +51,9 @@ local plugin_list = {
 		config = function()
 			require("ui.feline").setup()
 		end,
-		-- setup = function()
-		-- 	require("lazy_load").statusline()
-		-- end,
+		setup = function()
+			require("lazy_load").statusline()
+		end,
 	},
 	-- Bufferline
 	{
@@ -61,9 +62,9 @@ local plugin_list = {
 		config = function()
 			require("ui.bufferline")
 		end,
-		-- setup = function()
-		-- 	require("lazy_load").bufferline()
-		-- end,
+		setup = function()
+			require("lazy_load").bufferline()
+		end,
 	},
 	-- tree
 	{
@@ -82,9 +83,9 @@ local plugin_list = {
 		config = function()
 			require("config.misc").blankline()
 		end,
-		-- setup = function()
-		-- 	require("lazy_load").blankline()
-		-- end,
+		setup = function()
+			require("lazy_load").blankline()
+		end,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -97,9 +98,9 @@ local plugin_list = {
 	{
 		"andymass/vim-matchup",
 		opt = true,
-		-- setup = function()
-		-- 	require("lazy_load").matchup()
-		-- end,
+		setup = function()
+			require("lazy_load").matchup()
+		end,
 	},
 
 	-- LSP time
@@ -130,9 +131,9 @@ local plugin_list = {
 		config = function()
 			require("config.lsp")
 		end,
-		-- setup = function()
-		-- 	require("lazy_load").lsp()
-		-- end,
+		setup = function()
+			require("lazy_load").lsp()
+		end,
 	},
 	-- Null-ls
 	{
@@ -233,9 +234,9 @@ local plugin_list = {
 		config = function()
 			require("config.dap").setup()
 		end,
-		-- setup = function()
-		-- 	require("lazy_load").dap()
-		-- end,
+		setup = function()
+			require("lazy_load").dap()
+		end,
 	},
 	{ "rcarriga/nvim-dap-ui", after = "nvim-dap", config = function() require("config.dap.ui") end },
 	{ "theHamsta/nvim-dap-virtual-text", after = "nvim-dap", config = function() require("config.dap.virtual_text") end, },
@@ -258,9 +259,9 @@ local plugin_list = {
 		config = function()
 			require("config.misc").gitsigns()
 		end,
-		-- setup = function()
-		-- 	require("lazy_load").gitsigns()
-		-- end,
+		setup = function()
+			require("lazy_load").gitsigns()
+		end,
 	},
 	-- Clipboard image
 	{ "ekickx/clipboard-image.nvim", opt = true, cmd = "PasteImg",
@@ -273,9 +274,9 @@ local plugin_list = {
 		config = function()
 			require("colorizer").setup()
 		end,
-		-- setup = function()
-		-- 	require("lazy_load").colorizer()
-		-- end,
+		setup = function()
+			require("lazy_load").colorizer()
+		end,
 	},
 
 	--TrueZen, looks really helpful
@@ -292,6 +293,7 @@ local plugin_list = {
 	{
 		"olimorris/persisted.nvim",
 		module = "persisted",
+		event = "BufReadPre",
 		config = function()
 			require("config.misc").persisted()
 		end

@@ -24,10 +24,7 @@ local sources = {
 	formatting.shellharden,
 	formatting.autopep8,
 	formatting.prettierd,
-	-- formatting.stylua.with({
-	--     extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") }
-	-- })
-
+	--formatting.stylua,
 	-- Code Actions
 	-- code_actions.eslint_d,
 	code_actions.shellcheck,

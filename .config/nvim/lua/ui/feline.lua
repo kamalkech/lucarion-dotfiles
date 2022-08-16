@@ -1,12 +1,7 @@
 local M = {}
 
-local b = vim.b
 local fn = vim.fn
 local lsp_severity = vim.diagnostic.severity
-
--- local colors  = require("catppuccin.palettes").get_palette()
--- local ucolors = require("catppuccin.utils.colors")
--- local latte   = require("catppuccin.palettes.latte")
 
 local lsp_provider = require("feline.providers.lsp")
 
@@ -53,20 +48,6 @@ local mode_alias = {
 	['null'] = { "NONE", "FelineNoneMode" },
 }
 
-local get_git_status = function(opts)
-	if not b.gitsigns_head or b.gitsigns_git_status then
-		return false
-	end
-	local enabled = false
-	opts = opts or { "added", "changed", "removed" }
-	local git_status = b.gitsigns_status_dict
-	for _, status in pairs(opts) do
-		enabled = enabled or (git_status[status] and git_status[status] > 0)
-	end
-	return enabled
-end
-
-
 local invi_sep = {
 	provider = " ",
 	hl = "FelineInviSep"
@@ -90,32 +71,25 @@ local vi = {
 }
 
 local git = {
-	left_sep = {
-		provider = icons.left_separator,
-		enabled = function() return get_git_status() end,
-		hl = "FelineInviSep",
-	},
-	right_sep = {
-		provider = icons.right_separator,
-		enabled = function() return get_git_status() end,
-		hl = "FelineInviSep",
-	},
 	branch = {
 		provider = "git_branch",
 		hl = "FelineGitBranch",
-		icons = "  ",
+		--icon = "  ",
 	},
 	added = {
 		provider = "git_diff_added",
 		hl = "FelineGitAdded",
+		icon = "  "
 	},
 	changed = {
 		provider = "git_diff_changed",
 		hl = "FelineGitChanged",
+		icon = "  ",
 	},
 	removed = {
 		provider = "git_diff_removed",
 		hl = "FelineGitRemoved",
+		icon = "  "
 	},
 }
 
@@ -183,7 +157,7 @@ local lsp = {
 		provider = "diagnostic_hints",
 		enabled = function() return lsp_provider.diagnostics_exist(lsp_severity.HINT) end,
 		hl = "FelineLSPHints",
-		icon = " ﯧ ",
+		icon = "  ",
 	},
 	infos = {
 		provider = "diagnostic_info",
@@ -273,13 +247,13 @@ local dir_info = {
 	},
 	session_status = {
 		provider = function()
-			if vim.g.persisting == true then
+			if vim.g.persisting then
 				return " "
 			else
 				return " "
 			end
 		end,
-		-- enabled = function() return vim.g.persisting ~= nil end,
+		enabled = function() return vim.g.persisting ~= nil end,
 		hl = "FelineDirInfoSessionStatus"
 	},
 }

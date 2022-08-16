@@ -27,7 +27,7 @@
 -- yellow
 
 return {
-	NvimDapVirtualText = { fg = "yellow", link = nil, bold = false, italic = false },
-	NvimDapVirtualTextError = { link = "DiagnosticError" },
-	NvimDapVirtualTextChanged = { fg = "sky", link = nil, bold = true, italic = true },
+	NvimDapVirtualText = { fg = palette_colors.yellow, link = nil, bold = false, italic = false },
+	NvimDapVirtualTextError = { link = palette_colors.DiagnosticError },
+	NvimDapVirtualTextChanged = { fg = palette_colors.sky, link = nil, bold = true, italic = true },
 }

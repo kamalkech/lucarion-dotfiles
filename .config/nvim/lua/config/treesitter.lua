@@ -38,4 +38,10 @@ local default = {
 	additional_vim_regex_highlighting = false,
 }
 
+vim.filetype.add({
+	extension = {
+		rasi = "rasi",
+	}
+})
+
 ts_config.setup(default)

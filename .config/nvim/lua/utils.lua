@@ -13,6 +13,14 @@ _G.lazy = function(plugin, timer)
 	end, timer or 0)
 end
 
+_G.reload_theme_auto = function()
+	require("plenary.reload").reload_module("ui.highlight")
+	require("plenary.reload").reload_module("ui.catppuccin")
+	require("ui.catppuccin")
+	vim.cmd [[silent! CatppuccinCompile]]
+	vim.defer_fn(function() vim.cmd("colorscheme catppuccin") end, 0)
+end
+
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then

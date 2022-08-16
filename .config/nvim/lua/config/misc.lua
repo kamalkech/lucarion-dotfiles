@@ -242,18 +242,28 @@ M.blankline = function()
 		show_trailing_blankline_indent = false,
 		show_first_indent_level = false,
 		show_current_context = true,
+		char_highlight_list = {
+			"IndentBlanklineIndent1",
+			"IndentBlanklineIndent2",
+			"IndentBlanklineIndent3",
+			"IndentBlanklineIndent4",
+			"IndentBlanklineIndent5",
+			"IndentBlanklineIndent6",
+		}
 	})
 end
 
 M.persisted = function()
 	require("persisted").setup({
+		use_git_branch = true,
 		allowed_dirs = {
-			"~/Desktop",
+			"~/Desktop/INIAD",
+			"~/Desktop/Personal",
 			"~/dotfiles",
 			"~/.config/nvim",
+			"~/.config/awesome",
 			"~/work",
 		},
-		use_git_branch = true,
 		before_save = function()
 			if package.loaded["nvim-tree"] then
 				vim.api.nvim_command("NvimTreeClose")

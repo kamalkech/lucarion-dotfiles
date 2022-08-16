@@ -9,31 +9,26 @@ autocmd("FileType", {
 	end,
 })
 
+
 autocmd("User", {
 	group = api.nvim_create_augroup("PackerCompileCatppuccin", { clear = true }),
 	pattern = "PackerCompileDone",
 	callback = function()
-		vim.g.loaded_telescope = 0
-		require("catppuccin").compile()
-		vim.defer_fn(function() vim.cmd("colorscheme catppuccin") end, 0)
+		reload_theme_auto()
 	end
 })
 
 autocmd("BufWritePost", {
-	group = api.nvim_create_augroup("AutoCompileCatppuccin", {}),
+	group = api.nvim_create_augroup("AutoCompileCatppuccin", { clear = true }),
 	pattern = {
 		vim.fn.stdpath("config") .. "/lua/ui/catppuccin.lua",
 		vim.fn.stdpath("config") .. "/lua/ui/highlights/*",
 	},
 	callback = function()
-		require("plenary.reload").reload_module("ui.highlight")
-		require("plenary.reload").reload_module("ui.catppuccin")
-		require("ui.catppuccin")
-		vim.cmd [[silent lua require("catppuccin").compile()]]
-		vim.defer_fn(function() vim.cmd("colorscheme catppuccin") end, 0)
+		reload_theme_auto()
 	end
 })
 
-for _, func in pairs(require("lazy_load")) do
-	func()
-end
+-- for _, func in pairs(require("lazy_load")) do
+-- 	func()
+-- end

@@ -1,5 +1,5 @@
 --local present, impatient =
-pcall(require, "impatient")
+vim.schedule(function() pcall(require, "impatient") end)
 
 require("utils")
 require("options")

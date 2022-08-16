@@ -4,12 +4,13 @@ local api = vim.api
 local autocmd = api.nvim_create_autocmd
 
 M.bufferline = function()
-	-- Only load bufferline when there's more than 2 listed buffers
+	--Only load bufferline when there's more than 2 listed buffers
 	autocmd({ "BufNewFile", "BufRead", "TabEnter" }, {
 		group = api.nvim_create_augroup("BufferLineLazyLoad", {}),
 		callback = function()
 			if #vim.fn.getbufinfo({ buflisted = 1 }) >= 2 then
 				lazy("bufferline.nvim")
+				vim.defer_fn(function() vim.cmd("colorscheme catppuccin") end, 0)
 				api.nvim_del_augroup_by_name("BufferLineLazyLoad")
 			end
 		end,
@@ -74,26 +75,14 @@ M.gitsigns = function()
 	autocmd("BufRead", {
 		group = api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
 		callback = function()
-			if packer_plugins["gitsigns.nvim"].loaded then
-				api.nvim_del_augroup_by_name("GitSignsLazyLoad")
-				return
-			end
-			--Taken from @max397574
 			if vim.api.nvim_buf_get_lines(0, 0, -1, false) ~= { "" } then
-				vim.loop.spawn("git", {
-					args = {
-						"ls-files",
-						"--error-unmatch",
-						vim.fn.expand("%:p:h"),
-					}
-				},
-					function(code, _)
-						if code == 0 then
-							vim.schedule(function()
-								require("packer").loader("gitsigns.nvim")
-							end)
-						end
+				vim.fn.system("git rev-parse 2>/dev/null " .. vim.fn.expand("%:p:h"))
+				if vim.v.shell_error == 0 then
+					api.nvim_del_augroup_by_name("GitSignsLazyLoad")
+					vim.schedule(function()
+						require("packer").loader("gitsigns.nvim")
 					end)
+				end
 			end
 		end,
 	})

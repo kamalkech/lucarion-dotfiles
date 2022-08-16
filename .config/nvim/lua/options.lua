@@ -55,15 +55,15 @@ opt.splitbelow = true
 opt.number = true
 opt.ruler = false
 
--- Mouse even tho 95% of the time i wont use it inside vim
+-- Mouse even tho 99% of the time i wont use it inside vim
 opt.mouse = "a"
 
 opt.whichwrap:append "<>[]hl"
 g.mapleader = " "
 
 -- So that I can know if Im using spaces or tabs
-opt.list = true
-opt.listchars = "tab: ,lead:⋅,trail:⋅,eol:↴"
+-- opt.list = true
+-- opt.listchars = "tab: ,lead:⋅,trail:⋅,eol:↴"
 -- get python path
 if fn.exists("$VIRTUAL_ENV") == 1 then
 	g.python3_host_prog = fn.substitute(fn.system("which -a python3 | head -n2 | tail -n1"), "\n", "", "g")

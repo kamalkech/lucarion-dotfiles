@@ -14,9 +14,9 @@ M.setup = function(attach, capabilities)
 				telemetry = {
 					enable = false,
 				},
-				format = {
-					enable = true,
-				},
+				-- format = {
+				-- 	enable = true,
+				-- },
 			},
 		},
 	}

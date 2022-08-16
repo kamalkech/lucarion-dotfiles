@@ -1,4 +1,6 @@
-local hl_groups = require("ui.highlights").get_hlgroups()
+local custom_hls = require("ui.highlights").get_hlgroups()
+--local hl_override = require("ui.highlights").get_hlgroups({ "bufferline", "dap", "general" })
+vim.g.catppuccin_flavour = "latte"
 require("catppuccin").setup({
 	transparent_background = true,
 	term_colors = true,
@@ -7,6 +9,8 @@ require("catppuccin").setup({
 		path = vim.fn.stdpath("cache") .. "/catppuccin",
 		suffix = "_compiled",
 	},
+	-- Custom hlgroup
+	custom_highlights = custom_hls,
 	styles = {
 		comments = { "bold", "italic" },
 		conditionals = { "bold", "italic" },
@@ -28,9 +32,9 @@ require("catppuccin").setup({
 		},
 		indent_blankline = {
 			enabled = true,
-			colored_indent_levels = false,
+			colored_indent_levels = true,
 		},
-		bufferline = true,
+		bufferline = false,
 		markdown = true,
 		dap = {
 			enabled = true,
@@ -43,7 +47,6 @@ require("catppuccin").setup({
 		vimwiki = false,
 		beacon = false,
 	},
-	-- Custom hlgroup
-	custom_highlights = hl_groups,
+	--highlight_overrides = hl_override,
 })
-vim.cmd.colorscheme("catppuccin")
+vim.cmd("colorscheme catppuccin")
