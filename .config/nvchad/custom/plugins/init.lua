@@ -1,11 +1,16 @@
 local M = {}
 
 M.override = {
-	["NvChad/ui"] = {
-		statusline = {
-			separator_style = "round",
-		}
-	},
+	-- ["NvChad/ui"] = {
+	-- 	statusline = {
+	-- 		separator_style = "round",
+	-- 	},
+	-- 	tabufline = {
+	-- 		overriden_modules = function()
+	-- 			return require("custom.ui.tabufline.override")
+	-- 		end,
+	-- 	}
+	-- },
 	["lewis6991/gitsigns.nvim"] = {
 		current_line_blame = true,
 		current_line_blame_opts = {
@@ -13,7 +18,14 @@ M.override = {
 		},
 		max_file_length = 10000,
 	},
-	["kyazdani42/nvim-tree.lua"]
+	["lukas-reineke/indent-blankline.nvim"] = {
+		buftype_exclude = {
+			"terminal",
+			"help",
+			"nofile",
+		},
+		show_current_context_start = false,
+	}
 }
 
 M.user = {
@@ -28,8 +40,8 @@ M.user = {
 		end
 	},
 	-- LSP for specific filetypes
-	["p00f/clangd_extensions.nvim"] = { 
-		ft = {"c", "cpp", "objc", "objcpp"},
+	["p00f/clangd_extensions.nvim"] = {
+		ft = { "c", "cpp", "objc", "objcpp" },
 		config = function()
 			require("custom.plugins.lsp.custom").clangd()
 		end
@@ -55,9 +67,19 @@ M.user = {
 		-- 	require("custom.plugins.lsp.null-ls")
 		-- end,
 	},
+	-- fzf for telescope
+	["nvim-telescope/telescope-fzf-native.nvim"] = {
+		before = "telescope.nvim",
+		run = "make",
+	},
 	-- Entirety of Nvim-Dap
 
 	--------------Plugins in NvChad---------------------------
+	["NvChad/ui"] = {
+		config = function()
+			require("custom.ui").setup()
+		end
+	},
 	["neovim/nvim-lspconfig"] = {
 		opt = true,
 		setup = function()
@@ -76,16 +98,16 @@ M.user = {
 	-- 		require("custom.plugins.lsp")
 	-- 	end
 	-- },
-	-- ["kyazdani42/nvim-tree.lua"] = {
-		-- config = function()
-		-- 	require("custom.plugins.misc").nvimtree()
-		-- end
-	-- },
-	-- ["nvim-telescope/telescope.nvim"] = {
-	-- 	config = function()
-	-- 		require("custom.plugins.misc").telescope()
-	-- 	end,
-	-- },
+	["kyazdani42/nvim-tree.lua"] = {
+		config = function()
+			require("custom.plugins.misc").nvimtree()
+		end
+	},
+	["nvim-telescope/telescope.nvim"] = {
+		config = function()
+			require("custom.plugins.misc").telescope()
+		end,
+	},
 	["ekickx/clipboard-image.nvim"] = {
 		cmd = "PasteImg",
 		config = function()

@@ -6,7 +6,7 @@ opt.sessionoptions = "buffers,curdir,folds,winpos,tabpages"
 opt.wrap = false
 opt.linebreak = true
 opt.breakindent = true
-opt.cmdheight = 0
+-- opt.cmdheight = 0
 opt.timeoutlen = 250
 
 opt.foldmethod = "expr"
@@ -23,12 +23,11 @@ else
 	g.python3_host_prog = fn.substitute(fn.system("which python3"), "\n", "", "g")
 end
 
-
 local enabled_providers = {
-	"node",
-	"python3",
+	"node_provider",
+	"python3_provider",
 }
-
 for _, provider in pairs(enabled_providers) do
-	g["loaded_" .. provider .. "_provider"] = 1
+	g["loaded_" .. provider] = nil
+	vim.cmd("runtime " .. provider)
 end

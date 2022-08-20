@@ -264,4 +264,115 @@ M.persisted = function()
 	})
 end
 
+M.nvimtree = function()
+	vim.g.nvimtree_side = "left"
+	require("base46").load_highlight("nvimtree")
+	require("nvim-tree").setup({
+		create_in_closed_folder = true,
+		disable_netrw = true,
+		sort_by = "extension",
+		view = {
+			side = "left",
+			width = 25,
+		},
+		renderer = {
+			group_empty = true,
+			highlight_git = false,
+			highlight_opened_files = "all",
+			root_folder_modifier = table.concat { ":t:gs?$?/..", string.rep(" ", 1000), "?:gs?^??" },
+			indent_markers = { enable = true },
+			icons = {
+				padding = "",
+			},
+			special_files = {
+				"Cargo.toml", ".luarc.json", "README.md", "readme.md", "Makefile", "package.json",
+			}
+		},
+		filters = {
+			custom = {
+				"node_modules",
+				".git",
+				".github",
+				-- "^plugin/*_compiled.*",
+			},
+			exclude = {
+				".gitignore",
+			}
+		},
+		update_cwd = true,
+		git = {
+			enable = true,
+			ignore = false,
+		},
+		filesystem_watchers = { debounce_delay = 150 },
+		actions = {
+			change_dir = {
+				restrict_above_cwd = true,
+			}
+		},
+	})
+end
+
+M.telescope = function()
+	local telescope = require("telescope")
+	vim.g.theme_switcher_loaded = true
+	require("base46").load_highlight("telescope")
+	telescope.setup({
+		defaults = {
+			vimgrep_arguments = {
+				"rg",
+				"--color=never",
+				"--no-heading",
+				"--with-filename",
+				"--line-number",
+				"--column",
+				"--smart-case",
+				"--trim",
+			},
+			prompt_prefix = "   ",
+			selection_caret = "  ",
+			entry_prefix = "  ",
+			initial_mode = "insert",
+			selection_strategy = "reset",
+			sorting_strategy = "ascending",
+			layout_strategy = "horizontal",
+			layout_config = {
+				horizontal = {
+					prompt_position = "top",
+					preview_width = 0.55,
+					results_width = 0.8,
+				},
+				vertical = {
+					mirror = false,
+				},
+				width = 0.80,
+				height = 0.80,
+				-- preview_cutoff = 120,
+			},
+			file_ignore_patterns = { "node_modules", "packer_compiled", "LICENSE" },
+			path_display = { "truncate" },
+			winblend = 0,
+			border = {},
+			borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+			color_devicons = true,
+			set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+			mappings = {
+				n = { ["q"] = require("telescope.actions").close },
+			},
+		},
+		extensions = {
+			fzf = {
+				fuzzy = true,
+				override_generic_sorter = true,
+				override_file_sorter = true,
+				case_mode = "smart_case",
+			}
+		}
+	})
+	local extensions = { "fzf", "themes" }
+	for _, ext in pairs(extensions) do
+		telescope.load_extension(ext)
+	end
+end
+
 return M

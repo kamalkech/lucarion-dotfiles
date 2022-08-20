@@ -59,7 +59,17 @@ M.general = {
 		[">"] = {">gv", ""},
 		["<"] = {"<gv", ""},
 		["<A-j>"] = {":m'>+1<CR>==gv", ""},
-		["<A-k>"] = {":m'<-2<CR>==gv", ""}
+		["<A-k>"] = {":m'<-2<CR>==gv", ""},
+		["j"] = {
+			function ()
+				   require("accelerated-jk").move_to("j")
+			end, "", opts = {expr = false},
+		},
+		["k"] = {
+			function()
+				require("accelerated-jk").move_to("k")
+			end, ""
+		},
 	}
 }
 

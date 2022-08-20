@@ -1,28 +1,14 @@
 local M = {}
 
+local plugins = require("custom.plugins")
+local highlights = require("custom.ui.highlights")
+
 M.ui = {
 	theme = "onedark",
 	theme_toggle = { "onedark", "rxyhn" },
-	transparency = false,
-	hl_override = {
-		Comment = {
-			fg = "yellow", bold = true, italic = true,
-		},
-		markdownError = {
-			link = "Normal"
-		},
-		Folded = {
-			fg = "blue",
-		},
-		CmpBorder = {
-			fg = "orange",
-		},
-		CmpDocBorder = {
-			fg = "sun",
-		}
-	},
-	-- hl_add = {
-	-- }
+	transparency = true,
+	hl_override = highlights.override,
+	hl_add = highlights.add,
 }
 
 M.plugins = {
@@ -31,8 +17,8 @@ M.plugins = {
 		"goolord/alpha-nvim",
 		"NvChad/nvterm",
 	},
-	override = require("custom.plugins").override,
-	user = require("custom.plugins").user
+	override = plugins.override,
+	user = plugins.user
 }
 
 M.mappings = require("custom.mappings")
