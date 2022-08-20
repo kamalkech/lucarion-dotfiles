@@ -20,22 +20,22 @@ M.disabled = {
 
 M.general = {
 	n = {
-		["<C-c>"] = {"<cmd>%y+<CR>", "", opts = {silent = true}},
-		["<leader>q"] = {"<cmd>q<CR>", ""},
+		["<C-c>"] = { "<cmd>%y+<CR>", "", opts = { silent = true } },
+		["<leader>q"] = { "<cmd>q<CR>", "" },
 		["j"] = {
-			function ()
-				   require("accelerated-jk").move_to("j")
-			end, "", opts = {expr = false},
+			function()
+				require("accelerated-jk").move_to("j")
+			end, "", opts = { expr = false, silent = true,},
 		},
 		["k"] = {
 			function()
 				require("accelerated-jk").move_to("k")
-			end, ""
+			end, "", opts = {expr = false, silent = true}
 		},
-		["<A-j>"] = {"<cmd>m+1<CR>==", ""},
-		["<A-k>"] = {"<cmd>m-2<CR>==", ""},
+		["<A-j>"] = { "<cmd>m+1<CR>==", "" },
+		["<A-k>"] = { "<cmd>m-2<CR>==", "" },
 		["<leader>rs"] = {
-			function ()
+			function()
 				require("persisted").load()
 			end, ""
 		},
@@ -47,23 +47,23 @@ M.general = {
 	},
 	i = {
 		-- Emacs keybind kek
-		["<C-a>"] = {"<Home><C-Right>", ""},
-		["<C-f>"] = {"<C-Right>", ""},
-		["<C-b>"] = {"<C-Left>", ""},
-		["jk"] = {"<Esc>", ""},
-		["<A-j>"] = {"<Esc><cmd>m+1<CR>==gi", ""},
-		["<A-k>"] = {"<Esc><cmd>m-2<CR>==gi", ""},
-		["<C-A-v>"] = {"<Esc><cmd>PasteImg<CR>", ""}
+		["<C-a>"] = { "<Home><C-Right>", "" },
+		["<C-f>"] = { "<C-Right>", "" },
+		["<C-b>"] = { "<C-Left>", "" },
+		["jk"] = { "<Esc>", "" },
+		["<A-j>"] = { "<Esc><cmd>m+1<CR>==gi", "" },
+		["<A-k>"] = { "<Esc><cmd>m-2<CR>==gi", "" },
+		["<C-A-v>"] = { "<Esc><cmd>PasteImg<CR>", "" }
 	},
 	v = {
-		[">"] = {">gv", ""},
-		["<"] = {"<gv", ""},
-		["<A-j>"] = {":m'>+1<CR>==gv", ""},
-		["<A-k>"] = {":m'<-2<CR>==gv", ""},
+		[">"] = { ">gv", "" },
+		["<"] = { "<gv", "" },
+		["<A-j>"] = { ":m+1<CR>==gv", "", opts = { silent = true } },
+		["<A-k>"] = { ":m-2<CR>==gv", "", opts = { silent = true } },
 		["j"] = {
-			function ()
-				   require("accelerated-jk").move_to("j")
-			end, "", opts = {expr = false},
+			function()
+				require("accelerated-jk").move_to("j")
+			end, "", opts = { expr = false },
 		},
 		["k"] = {
 			function()
@@ -100,7 +100,7 @@ M.telescope = {
 }
 
 -- M.dap = {
--- 	plugin = true,
+	-- 	plugin = true,
 -- }
 
 return M

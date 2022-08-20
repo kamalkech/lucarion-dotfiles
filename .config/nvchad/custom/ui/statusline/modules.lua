@@ -2,13 +2,6 @@ local M = {}
 
 local fn = vim.fn
 
-local icons = {
-	left_separator = "",
-	right_separator = "",
-	bar = "█",
-	mode_icon = " ",
-}
-
 local modes = {
 	["n"] = { "NORMAL", "St_NormalMode" },
 	["niI"] = { "NORMAL i", "St_NormalMode" },
@@ -42,7 +35,7 @@ M.invi_sep = "%#StInviSep# "
 
 M.mode = function()
 	local m = vim.api.nvim_get_mode().mode
-	local current_mode = "%#" .. modes[m][2] .. "#  " .. modes[m][1]
+	local current_mode = "%#" .. modes[m][2] .. "# " .. modes[m][1]
 	local left_sep = "%#" .. modes[m][2] .. "Sep#"
 	local right_sep = "%#" .. modes[m][2] .. "Sep#"
 	return left_sep .. current_mode .. right_sep
@@ -75,18 +68,18 @@ M.git = function()
 	local git_status = vim.b.gitsigns_status_dict
 	local branch = "%#StGitBranch#  " .. git_status.head
 	local added = (git_status.added and git_status.added ~= 0)
-			and (" %#StGitAdded#  " .. git_status.added) or ""
+			and ("%#StGitAdded#  " .. git_status.added) or ""
 	local changed = (git_status.changed and git_status.changed ~= 0)
-			and (" %#StGitChanged#  " .. git_status.changed) or ""
+			and ("%#StGitChanged#  " .. git_status.changed) or ""
 	local removed = (git_status.removed and git_status.removed ~= 0)
-			and (" %#StGitRemoved#  " .. git_status.removed) or ""
+			and ("%#StGitRemoved#  " .. git_status.removed) or ""
 	return branch .. added .. changed .. removed
 end
 
 M.session_status = function()
 	return vim.g.persisting == true
-			and "%#StSessionStatus# "
-			or "%#StSessionStatus# "
+			and "%#StSessionStatus#  "
+			or "%#StSessionStatus#  "
 end
 
 M.lsp_diagnostics = function()
@@ -94,10 +87,10 @@ M.lsp_diagnostics = function()
 	local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
 	local hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
 	local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
-	errors = (errors and errors > 0) and (" %#StLSPErrors# " .. errors) or ""
-	warnings = (warnings and warnings > 0) and (" %#StLSPWarnings# " .. warnings) or ""
-	hints = (hints and hints > 0) and (" %#StLSPHints# " .. hints) or ""
-	info = (info and info > 0) and (" %#StLSPInfo# " .. info) or ""
+	errors = (errors and errors > 0) and ("%#StLSPErrors# " .. errors .. " ") or ""
+	warnings = (warnings and warnings > 0) and ("%#StLSPWarnings# " .. warnings .. " ") or ""
+	hints = (hints and hints > 0) and ("%#StLSPHints# " .. hints .. " ") or ""
+	info = (info and info > 0) and ("%#StLSPInfo# " .. info .. " ") or ""
 	return errors .. warnings .. hints .. info
 end
 

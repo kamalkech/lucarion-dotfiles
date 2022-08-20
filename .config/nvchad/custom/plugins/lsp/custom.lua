@@ -35,13 +35,17 @@ M.js = function()
 	lspconfig.tsserver.setup({
 		init_options = {
 			hostInfo = "neovim",
-			on_attach = attach,
-			capabilities = capabilities,
-		}
+		},
+		on_attach = attach,
+		capabilities = capabilities,
 	})
 end
 
 M.clangd = function()
+	if vim.g.loaded_clangd then
+		return
+	end
+	vim.g.loaded_clangd = true
 	local custom_capabilities = capabilities
 	custom_capabilities.offsetEncoding = "utf-16"
 	require("clangd_extensions").setup({

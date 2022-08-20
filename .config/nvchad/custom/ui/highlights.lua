@@ -30,11 +30,11 @@ M.add = {
 	StSessionStatus = { fg = "blue", bg = "statusline_bg" },
 
 	--CurFile
-	StCwd        = { bg = "green", fg = "black" },
-	StFile       = { bg = "vibrant_green", fg = "black" },
-	StCwdSep     = { fg = "green", bg = "statusline_bg" },
-	StFileSep    = { fg = "vibrant_green", bg = "statusline_bg" },
-	StDirFileSep = { fg = "green", bg = "vibrant_green" },
+	StCwd        = { bg = "yellow", fg = "black" },
+	StFile       = { bg = "orange", fg = "black" },
+	StCwdSep     = { fg = "yellow", bg = "statusline_bg" },
+	StFileSep    = { fg = "orange", bg = "statusline_bg" },
+	StDirFileSep = { fg = "yellow", bg = "orange" },
 
 	-- Git stuffs
 	StGitBranch  = { fg = "purple", bg = "statusline_bg" },
@@ -52,8 +52,9 @@ M.add = {
 
 	-- File Info stuffs
 	StPosition    = { bg = "teal", fg = "black" },
-	StPositionSep = { bg = "statusline_bg", fg = "teal" }
+	StPositionSep = { bg = "statusline_bg", fg = "teal" },
 	--------Custom Statusline coloring ends------------
+	DummyHLGroup = { bg = "black"},
 }
 
 return M

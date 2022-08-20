@@ -75,10 +75,19 @@ M.user = {
 	-- Entirety of Nvim-Dap
 
 	--------------Plugins in NvChad---------------------------
+	["wbthomason/packer.nvim"] = {
+		cmd = { "PackerSync", "PackerLoad", "PackerStatus" },
+	},
 	["NvChad/ui"] = {
 		config = function()
 			require("custom.ui").setup()
 		end
+	},
+	["williamboman/mason.nvim"] = {
+		cmd = "Mason",
+	},
+	["nvim-treesitter/nvim-treesitter"] = {
+		cmd = {},
 	},
 	["neovim/nvim-lspconfig"] = {
 		opt = true,
@@ -98,7 +107,13 @@ M.user = {
 	-- 		require("custom.plugins.lsp")
 	-- 	end
 	-- },
+	["hrsh7th/nvim-cmp"] = {
+		config = function()
+			require("custom.plugins.cmp")
+		end
+	},
 	["kyazdani42/nvim-tree.lua"] = {
+		ft = nil,
 		config = function()
 			require("custom.plugins.misc").nvimtree()
 		end
@@ -113,6 +128,9 @@ M.user = {
 		config = function()
 			require("custom.plugins.misc").clip_image()
 		end
+	},
+	["numToStr/Comment.nvim"] = {
+		keys = {},
 	},
 	--------------Plugins in NvChad ends here------------------
 }

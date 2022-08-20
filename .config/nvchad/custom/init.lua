@@ -31,3 +31,14 @@ for _, provider in pairs(enabled_providers) do
 	g["loaded_" .. provider] = nil
 	vim.cmd("runtime " .. provider)
 end
+
+if os.getenv("TERM") == "xterm-kitty" then
+	vim.api.nvim_create_autocmd("UIEnter", {
+		once = true,
+		callback = function()
+			vim.schedule(function()
+				require("custom.kitty_bg")
+			end)
+		end
+	})
+end

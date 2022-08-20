@@ -9,10 +9,9 @@ return {
 			modules.file_name(),
 			modules.git(),
 			"%=",
-			modules.session_status(),
-			"%=",
 			modules.lsp_diagnostics(),
 			modules.lsp_clients(),
+			modules.session_status(),
 			modules.position(),
 			modules.invi_sep,
 		})

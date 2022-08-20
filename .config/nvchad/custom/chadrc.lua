@@ -4,9 +4,9 @@ local plugins = require("custom.plugins")
 local highlights = require("custom.ui.highlights")
 
 M.ui = {
-	theme = "onedark",
-	theme_toggle = { "onedark", "rxyhn" },
-	transparency = true,
+	theme = "vscode_dark",
+	theme_toggle = { "onedark", "vscode_dark" },
+	transparency = false,
 	hl_override = highlights.override,
 	hl_add = highlights.add,
 }
@@ -20,7 +20,6 @@ M.plugins = {
 	override = plugins.override,
 	user = plugins.user
 }
-
 M.mappings = require("custom.mappings")
 
 return M
